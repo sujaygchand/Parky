@@ -41,7 +41,19 @@ namespace ParkyAPI
 					new Microsoft.OpenApi.Models.OpenApiInfo()
 					{
 						Title = "Parky API",
-						Version = "1"
+						Version = "1",
+						Description = "Sujay Parky API",
+						Contact = new Microsoft.OpenApi.Models.OpenApiContact()
+						{
+							Email = "sujaygchand@gmail.com",
+							Name = "Sujay Chand",
+							Url = new Uri("https://sujaygchand.github.io/")
+						},
+						License = new Microsoft.OpenApi.Models.OpenApiLicense()
+						{
+							Name = "La Licence",
+							Url = new Uri("https://youtu.be/dDagv6SA8nw?t=117")
+						}
 					});
 				var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
 				var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
