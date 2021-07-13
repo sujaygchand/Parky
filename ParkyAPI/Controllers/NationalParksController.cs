@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace ParkyAPI.Controllers
 {
@@ -41,7 +42,7 @@ namespace ParkyAPI.Controllers
 			return Ok(parkDtos);
 		}
 
-		[HttpGet("{id:int}")]
+		[HttpGet("{id:int}", Name = "GetNationalPark")]
 		public IActionResult GetNationalPark(int id)
 		{
 			NationalPark park = _nationalParkRepository?.GetNationalPark(id);
@@ -51,6 +52,29 @@ namespace ParkyAPI.Controllers
 
 			NationalParkDto parkDto = _mapper.Map<NationalParkDto>(park);
 			return Ok(parkDto);
+		}
+
+		[HttpPost]
+		public IActionResult CreateNationalPark([FromBody] NationalParkDto nationalParkDto)
+		{
+			if (nationalParkDto == null || _nationalParkRepository == null || _mapper == null)
+				return BadRequest(ModelState);
+
+			if (_nationalParkRepository.NationalParkExists(nationalParkDto.Name))
+			{
+				ModelState.AddModelError("", "National Park Exists");
+				return StatusCode(404, ModelState);
+			}
+
+			NationalPark nationalPark = _mapper.Map<NationalPark>(nationalParkDto);
+
+			if(_nationalParkRepository.TryCreateNationalPark(nationalPark) == false)
+			{
+				ModelState.AddModelError("", $"Something went wrong when saving the record {nationalPark.Name}");
+				return StatusCode(500, ModelState);
+			}
+
+			return CreatedAtRoute(nameof(GetNationalPark), new { id = nationalPark.Id}, nationalPark);
 		}
 	}
 }
