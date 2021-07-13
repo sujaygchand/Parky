@@ -24,6 +24,10 @@ namespace ParkyAPI.Controllers
 			_mapper = mapper;
 		}
 
+		/// <summary>
+		/// Get list of national parks.
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		public IActionResult GetNationalParks()
 		{
@@ -42,6 +46,11 @@ namespace ParkyAPI.Controllers
 			return Ok(parkDtos);
 		}
 
+		/// <summary>
+		/// Get individual national park
+		/// </summary>
+		/// <param name="id"> The Id of the national Park </param>
+		/// <returns></returns>
 		[HttpGet("{id:int}", Name = "GetNationalPark")]
 		public IActionResult GetNationalPark(int id)
 		{
