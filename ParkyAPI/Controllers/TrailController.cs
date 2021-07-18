@@ -73,7 +73,7 @@ namespace ParkyAPI.Controllers
 		[ProducesResponseType(StatusCodes.Status201Created)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-		public IActionResult CreateTrail([FromBody] TrailDto trailDto)
+		public IActionResult CreateTrail([FromBody] TrailUpsertDto trailDto)
 		{
 			if (trailDto == null || _trailRepository == null || _mapper == null)
 				return BadRequest(ModelState);
@@ -99,7 +99,7 @@ namespace ParkyAPI.Controllers
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-		public IActionResult UpdateTrail(int id, [FromBody] TrailDto trailDto)
+		public IActionResult UpdateTrail(int id, [FromBody] TrailUpsertDto trailDto)
 		{
 			if (id != trailDto.Id)
 			{
