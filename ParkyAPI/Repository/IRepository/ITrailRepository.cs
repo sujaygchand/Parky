@@ -13,9 +13,9 @@ namespace ParkyAPI.Repository.IRepository
 		Trail GetTrail(int trailId);
 		bool TrailExists(string name);
 		bool TrailExists(int id);
-		bool CreateTrail(Trail trail);
-		bool UpdateTrail(Trail trail);
-		bool DeleteTrail(Trail trail);
+		bool TryCreateTrail(Trail trail);
+		bool TryUpdateTrail(Trail trail);
+		bool TryDeleteTrail(Trail trail);
 		bool Save();
 	}
 }

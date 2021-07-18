@@ -18,7 +18,7 @@ namespace ParkyAPI.Repository
 			_db = db;
 		}
 
-		public bool CreateTrail(Trail trail)
+		public bool TryCreateTrail(Trail trail)
 		{
 			if (_db?.Trails == null)
 				return false;
@@ -27,7 +27,7 @@ namespace ParkyAPI.Repository
 			return Save();
 		}
 
-		public bool DeleteTrail(Trail trail)
+		public bool TryDeleteTrail(Trail trail)
 		{
 			if (_db?.Trails == null)
 				return false;
@@ -69,7 +69,7 @@ namespace ParkyAPI.Repository
 			return _db.Trails.Any(k => k.Id == id);
 		}
 
-		public bool UpdateTrail(Trail trail)
+		public bool TryUpdateTrail(Trail trail)
 		{
 			var trailObj = _db.Trails.Update(trail);
 			return Save();
