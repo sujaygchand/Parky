@@ -38,7 +38,15 @@ namespace ParkyAPI
 			services.AddScoped<ITrailRepository, TrailRepository>();
 
 			services.AddAutoMapper(typeof(ParkyMappings));
-			services.AddSwaggerGen(options => {
+			services.AddApiVersioning(options =>
+			{
+				options.AssumeDefaultVersionWhenUnspecified = true;
+				options.DefaultApiVersion = new ApiVersion(1, 0);
+				options.ReportApiVersions = true;
+			});
+
+			services.AddSwaggerGen(options =>
+			{
 				options.SwaggerDoc("ParkyOpenAPISpec",
 					new Microsoft.OpenApi.Models.OpenApiInfo()
 					{
@@ -75,7 +83,8 @@ namespace ParkyAPI
 
 			app.UseHttpsRedirection();
 			app.UseSwagger();
-			app.UseSwaggerUI(options => {
+			app.UseSwaggerUI(options =>
+			{
 				options.SwaggerEndpoint("/swagger/ParkyOpenAPISpec/swagger.json", "Parky API");
 				options.RoutePrefix = "";
 			});
