@@ -53,7 +53,7 @@ namespace ParkyAPI.Controllers
 		/// </summary>
 		/// <param name="id"> The Id of the Trail </param>
 		/// <returns></returns>
-		[HttpGet("{id:int}", Name = "GetTrail")]
+		[HttpGet("{id:int}", Name = "[action]")]
 		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TrailDto))]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesDefaultResponseType]
@@ -67,6 +67,33 @@ namespace ParkyAPI.Controllers
 			TrailDto trailDto = _mapper.Map<TrailDto>(trail);
 			return Ok(trailDto);
 		}
+
+		/// <summary>
+		/// Get Trails in the national park
+		/// </summary>
+		/// <param name="id"> The Id of the National Park </param>
+		/// <returns></returns>
+		[HttpGet("[action]/{id:int}")]
+		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TrailDto))]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesDefaultResponseType]
+		public IActionResult GetTrailsInNationalPark(int id)
+		{
+			var trails = _trailRepository?.GetTrailsInNationalPark(id);
+
+			if (trails == null)
+				return NotFound();
+
+			List<TrailDto> trailDtos = new List<TrailDto>();
+
+			foreach(var item in trails)
+			{
+				trailDtos.Add(_mapper.Map<TrailDto>(item));
+			}
+			
+			return Ok(trailDtos);
+		}
+
 
 		[HttpPost]
 		[ProducesResponseType(201, Type = typeof(TrailDto))]

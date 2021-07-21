@@ -72,9 +72,6 @@ namespace ParkyAPI
 										Url = new Uri("https://youtu.be/dDagv6SA8nw?t=117")
 									}
 								});
-							var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-							var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
-							options.IncludeXmlComments(cmlCommentsFullPath);
 						});*/
 
 			services.AddControllers();
