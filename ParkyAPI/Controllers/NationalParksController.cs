@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace ParkyAPI.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/v{version:apiVersion}/nationalparks")]
 	[ApiController]
 	[ProducesResponseType(StatusCodes.Status400BadRequest)]
 	public class NationalParksController : Controller
@@ -93,7 +93,7 @@ namespace ParkyAPI.Controllers
 				return StatusCode(500, ModelState);
 			}
 
-			return CreatedAtRoute(nameof(GetNationalPark), new { id = nationalPark.Id}, nationalPark);
+			return CreatedAtRoute(nameof(GetNationalPark), new { version = HttpContext.GetRequestedApiVersion().ToString(), id = nationalPark.Id}, nationalPark);
 		}
 
 		[HttpPatch("{id:int}", Name = "UpdateNationalPark")]

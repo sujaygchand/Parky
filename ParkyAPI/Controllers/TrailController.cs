@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ParkyAPI.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/v{version:apiVersion}/trails")]
 	[ApiController]
 	[ProducesResponseType(StatusCodes.Status400BadRequest)]
 	public class TrailController : Controller
