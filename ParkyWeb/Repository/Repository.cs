@@ -11,7 +11,7 @@ namespace ParkyWeb.Repository
 {
 	public class Repository<T> : IRepository<T> where T : class
 	{
-		public readonly IHttpClientFactory _clientFactory;
+		protected readonly IHttpClientFactory _clientFactory;
 
 		public Repository(IHttpClientFactory clientFactory)
 		{

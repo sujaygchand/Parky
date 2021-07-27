@@ -354,3 +354,4 @@ E:\SoftwareDevelopment\C# projects\Parky\ParkyWeb\bin\Debug\netcoreapp3.1\tr\Mic
 E:\SoftwareDevelopment\C# projects\Parky\ParkyWeb\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 E:\SoftwareDevelopment\C# projects\Parky\ParkyWeb\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
 E:\SoftwareDevelopment\C# projects\Parky\ParkyWeb\obj\Debug\netcoreapp3.1\ParkyWeb.MvcApplicationPartsAssemblyInfo.cs
+E:\SoftwareDevelopment\C# projects\Parky\ParkyWeb\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
