@@ -10,7 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkyWeb", "ParkyWeb\ParkyWeb.csproj", "{CAE1CF4C-5572-4E84-A030-D5B054DB60DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkyWeb", "ParkyWeb\ParkyWeb.csproj", "{CAE1CF4C-5572-4E84-A030-D5B054DB60DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkyXUnitTests", "ParkyXUnitTests\ParkyXUnitTests.csproj", "{2B067D39-FA3B-44C1-8945-B89C216AA462}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{CAE1CF4C-5572-4E84-A030-D5B054DB60DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAE1CF4C-5572-4E84-A030-D5B054DB60DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAE1CF4C-5572-4E84-A030-D5B054DB60DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B067D39-FA3B-44C1-8945-B89C216AA462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B067D39-FA3B-44C1-8945-B89C216AA462}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B067D39-FA3B-44C1-8945-B89C216AA462}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B067D39-FA3B-44C1-8945-B89C216AA462}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
