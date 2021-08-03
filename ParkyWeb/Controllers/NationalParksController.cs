@@ -23,6 +23,26 @@ namespace ParkyWeb.Controllers
 			return View(new NationalPark() { });
 		}
 
+		public async Task<IActionResult> Upsert(int? id)
+		{
+			if (_nationalParkRepository == null)
+				return NotFound();
+
+			NationalPark park = new NationalPark();
+
+			// Used for Create
+			if (id == null)
+				return View(park);
+
+			// Update
+			park = await _nationalParkRepository.GetAsync(StaticDetails.NationalParkAPIPath, id.GetValueOrDefault());
+
+			if(park == null)
+				return NotFound();
+
+			return View(park);
+		}
+
 		public async Task<IActionResult> GetAllNationalParks()
 		{
 			return Json(new { data = await _nationalParkRepository.GetAllAsync(StaticDetails.NationalParkAPIPath) });
