@@ -92,5 +92,16 @@ namespace ParkyWeb.Controllers
 		{
 			return Json(new { data = await _nationalParkRepository.GetAllAsync(StaticDetails.NationalParkAPIPath) });
 		}
+
+		[HttpDelete]
+		public async Task<IActionResult> Delete(int id)
+		{
+			if (_nationalParkRepository == null)
+				return NotFound();
+
+			var status = await _nationalParkRepository.DeleteAsync(StaticDetails.NationalParkAPIPath, id);
+
+			return Json(new { success = status, message = (status ? "Delete Successful" : "Delete Not Successful") });
+		}
 	}
 }
