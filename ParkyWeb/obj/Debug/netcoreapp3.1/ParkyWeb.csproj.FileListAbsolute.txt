@@ -428,3 +428,4 @@ E:\SoftwareDevelopment\C# projects\Parky\ParkyWeb\bin\Debug\netcoreapp3.1\runtim
 E:\SoftwareDevelopment\C# projects\Parky\ParkyWeb\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 E:\SoftwareDevelopment\C# projects\Parky\ParkyWeb\obj\Debug\netcoreapp3.1\Razor\Views\NationalParks\Index.cshtml.g.cs
 E:\SoftwareDevelopment\C# projects\Parky\ParkyWeb\obj\Debug\netcoreapp3.1\Razor\Views\NationalParks\Upsert.cshtml.g.cs
+E:\SoftwareDevelopment\C# projects\Parky\ParkyWeb\obj\Debug\netcoreapp3.1\Razor\Views\Trails\Index.cshtml.g.cs
