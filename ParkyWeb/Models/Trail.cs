@@ -21,9 +21,8 @@ namespace ParkyWeb.Models
 
 		public enum DifficultyType { Easy, Moderate, Difficult, Expert }
 		public DifficultyType Difficulty { get; set; }
-		[Required]
 		public int NationalParkId { get; set; }
-
+		
 		public NationalPark NationalPark { get; set; }
 
 		public string NationalParkName { get => NationalPark != null ? NationalPark.Name : "<span style=color:red;><b>[Unnamed]</color></span>"; }

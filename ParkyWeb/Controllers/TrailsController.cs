@@ -41,7 +41,9 @@ namespace ParkyWeb.Controllers
 				{
 					Text = k.Name,
 					Value = k.Id.ToString()
-				})
+				}),
+
+				Trail = new Trail()
 			};
 
 			// Used for Create
@@ -64,7 +66,22 @@ namespace ParkyWeb.Controllers
 				return NotFound();
 
 			if (!ModelState.IsValid)
-				return View(trailVM);
+			{
+				IEnumerable<NationalPark> parkList = await _nationalParkRepo.GetAllAsync(StaticDetails.NationalParkAPIPath);
+
+				TrailsVM objVM = new TrailsVM()
+				{
+					NationalParkList = parkList.Select(k => new SelectListItem
+					{
+						Text = k.Name,
+						Value = k.Id.ToString()
+					}),
+
+					Trail = trailVM.Trail
+				};
+
+				return View(objVM);
+			}
 
 			if (trailVM.Trail.Id == 0)
 				await _trailRepo.CreateAsync(StaticDetails.TrailAPIPath, trailVM.Trail);

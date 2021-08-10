@@ -429,3 +429,4 @@ E:\SoftwareDevelopment\C# projects\Parky\ParkyWeb\bin\Debug\netcoreapp3.1\runtim
 E:\SoftwareDevelopment\C# projects\Parky\ParkyWeb\obj\Debug\netcoreapp3.1\Razor\Views\NationalParks\Index.cshtml.g.cs
 E:\SoftwareDevelopment\C# projects\Parky\ParkyWeb\obj\Debug\netcoreapp3.1\Razor\Views\NationalParks\Upsert.cshtml.g.cs
 E:\SoftwareDevelopment\C# projects\Parky\ParkyWeb\obj\Debug\netcoreapp3.1\Razor\Views\Trails\Index.cshtml.g.cs
+E:\SoftwareDevelopment\C# projects\Parky\ParkyWeb\obj\Debug\netcoreapp3.1\Razor\Views\Trails\Upsert.cshtml.g.cs
