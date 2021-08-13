@@ -4,80 +4,81 @@
 	<div class="row pb-4 backgroundWhite">
 		@foreach (var park in Model.NationalParkList)
 		{
-			<div class="container backgroundWhite pb-4 rounded" style="background-color:#cde8e2">
-				<div class="card-border">
-					<div class="card-header bg-dark text-light ml-0 row container">
-						<div class="col-12 col-md-6">
-							<h1 class="text-warning">@park.Name</h1>
-						</div>
-						<div class="col-12 col-md-6 text-md-right">
-							<h1 class="text-warning">State: @park.State</h1>
-						</div>
+		<div class="container-border backgroundWhite pb-4">
+			<div class="card-border">
+				<div class="card-header bg-dark text-light ml-0 row container">
+					<div class="col-12 col-md-6">
+						<h1 class="text-warning">@park.Name</h1>
 					</div>
+					<div class="col-12 col-md-6 text-md-right">
+						<h1 class="text-warning">State: @park.State</h1>
+					</div>
+				</div>
 
-					<div class="card-body">
-						<div class="container rounded p-2">
-							<div class="row">
-								<div class="col-12 col-lg-8">
-									<div class="row">
-										<div class="col-12">
-											<h3 style="color:#bbb9b9">Established: @park.Established.Year</h3>
-										</div>
-										<div class="col-12">
-											@{
-												var trailList = Model.TrailList.Where(k => k.NationalParkId == park.Id);
-											}
+				<div class="card-body">
+					<div class="container rounded p-2">
+						<div class="row">
+							<div class="col-12 col-lg-8">
+								<div class="row">
+									<div class="col-12">
+										<h3 style="color:#bbb9b9">Established: @park.Established.Year</h3>
+									</div>
+									<div class="col-12">
+										@{
+											var trailList = Model.TrailList.Where(k => k.NationalParkId == park.Id);
+										}
 
-											@if (trailList.Count() > 0)
-											{
-												<table class="table table-striped" style="border:1px solid #808080">
-													<tr class="table-secondary">
-														<th>
-															Trail
-														</th>
-														<th>
-															Distance
-														</th>
-														<th>
-															Elevation Gain
-														</th>
-														<th>
-															Difficulty
-														</th>
+										@if (trailList.Count() > 0)
+										{
+											<table class="table table-striped" style="border:1px solid #808080">
+												<tr class="table-secondary">
+													<th>
+														Trail
+													</th>
+													<th>
+														Distance
+													</th>
+													<th>
+														Elevation Gain
+													</th>
+													<th>
+														Difficulty
+													</th>
+												</tr>
+
+												@foreach (var trail in trailList)
+												{
+													<tr>
+														<td>@trail.Name</td>
+														<td>@string.Format("{0}m", trail.Distance)</td>
+														<td>@string.Format("{0}m", trail.Elevation)</td>
+														<td>@trail.Difficulty</td>
 													</tr>
-
-													@foreach (var trail in trailList)
-													{
-														<tr>
-															<td>@trail.Name</td>
-															<td>@string.Format("{0}m", trail.Distance)</td>
-															<td>@string.Format("{0}m", trail.Elevation)</td>
-															<td>@trail.Difficulty</td>
-														</tr>
-													}
-												</table>
-											}
-											else
-											{
-												<p>No trail exists...</p>
-											}
-										</div>
+												}
+											</table>
+										}
+										else
+										{
+											<p>No trail exists...</p>
+										}
 									</div>
 								</div>
-								<div class="col-12 col-lg-4 text-center">
-									@{
-										var base64 = Convert.ToBase64String(park.Picture);
-										var imgSrc = string.Format("data:image/jpg;base64,{0}", base64);
-									}
-									<img src="@imgSrc" class="card-img-top p-2 rounded" width="100%" />
-								</div>
+							</div>
+							<div class="col-12 col-lg-4 text-center">
+								@{
+									var base64 = Convert.ToBase64String(park.Picture);
+									var imgSrc = string.Format("data:image/jpg;base64,{0}", base64);
+								}
+								<img src="@imgSrc" class="card-img-top p-2 rounded" width="100%" />
 							</div>
 						</div>
 					</div>
-
 				</div>
-				<br/>
+
 			</div>
+			<br />
+		</div>
+			
 		}
 	</div>
 	</div>
