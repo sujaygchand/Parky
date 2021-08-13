@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ParkyAPI.Controllers
 {
@@ -57,6 +58,7 @@ namespace ParkyAPI.Controllers
 		[HttpGet("{id:int}", Name = "GetNationalPark")]
 		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(NationalParkDto))]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[Authorize]
 		[ProducesDefaultResponseType]
 		public IActionResult GetNationalPark(int id)
 		{
