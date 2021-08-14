@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using ParkyAPI.Data;
 using ParkyAPI.ParkyMapper;
 using ParkyAPI.Repository;
@@ -19,6 +21,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ParkyAPI
@@ -52,6 +55,31 @@ namespace ParkyAPI
 			services.AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VVV");
 			services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 			services.AddSwaggerGen();
+			IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
+
+			services.Configure<AppSettings>(appSettingsSection);
+
+			var appSettings = appSettingsSection.Get<AppSettings>();
+			var appKey = Encoding.ASCII.GetBytes(appSettings.Secret);
+
+			services.AddAuthentication(k =>
+			{
+				k.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				k.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+			}).AddJwtBearer(k =>
+			{
+				k.RequireHttpsMetadata = false;
+				k.SaveToken = true;
+				k.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidateIssuerSigningKey = true,
+					IssuerSigningKey = new SymmetricSecurityKey(appKey),
+					ValidateIssuer = false,
+					ValidateAudience = false
+				};
+
+			});
+
 
 			/*			services.AddSwaggerGen(options =>
 						{
@@ -106,6 +134,11 @@ namespace ParkyAPI
 
 			app.UseRouting();
 
+			// Allows methods from different API versions to be used
+			app.UseCors(k => k.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+			// Always Authenticate before Authorize
+			app.UseAuthentication();
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
