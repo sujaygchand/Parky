@@ -166,3 +166,4 @@ E:\SoftwareDevelopment\C# projects\Parky\ParkyAPI\bin\Debug\netcoreapp3.1\Micros
 E:\SoftwareDevelopment\C# projects\Parky\ParkyAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer.dll
 E:\SoftwareDevelopment\C# projects\Parky\ParkyAPI\bin\Debug\netcoreapp3.1\Castle.Core.dll
 E:\SoftwareDevelopment\C# projects\Parky\ParkyAPI\bin\Debug\netcoreapp3.1\FakeItEasy.dll
+E:\SoftwareDevelopment\C# projects\Parky\ParkyAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll

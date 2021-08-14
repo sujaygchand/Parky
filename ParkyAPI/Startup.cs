@@ -55,11 +55,11 @@ namespace ParkyAPI
 			services.AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VVV");
 			services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 			services.AddSwaggerGen();
-			IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
+			var appSettingsSection = Configuration.GetSection("ApplicationSettings");
 
-			services.Configure<AppSettings>(appSettingsSection);
+			services.Configure<ApplicationSettings>(appSettingsSection);
 
-			var appSettings = appSettingsSection.Get<AppSettings>();
+			var appSettings = appSettingsSection.Get<ApplicationSettings>();
 			var appKey = Encoding.ASCII.GetBytes(appSettings.Secret);
 
 			services.AddAuthentication(k =>
@@ -80,7 +80,7 @@ namespace ParkyAPI
 
 			});
 
-
+			services.AddScoped<ApplicationSettings>(k => appSettings);
 			/*			services.AddSwaggerGen(options =>
 						{
 							options.SwaggerDoc("ParkyOpenAPISpec",
