@@ -35,7 +35,8 @@ namespace ParkyAPI.Repository
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
 				Subject = new ClaimsIdentity(new Claim[] {
-					new Claim(ClaimTypes.Name, user.Role.ToString())
+					new Claim(ClaimTypes.Name, user.Role.ToString()),
+					new Claim(ClaimTypes.Role, user.Role)
 				}),
 				Expires = DateTime.UtcNow.AddDays(7),
 				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -54,7 +55,7 @@ namespace ParkyAPI.Repository
 			return user == null;
 		}
 
-		public User Register(string username, string password)
+		public User Register(string username, string password, string role = "")
 		{
 			if (_db == null)
 				return null;
@@ -62,7 +63,8 @@ namespace ParkyAPI.Repository
 			User user = new User()
 			{
 				Username = username,
-				Password = password
+				Password = password,
+				Role = string.IsNullOrWhiteSpace(role) ? "Admin" : role
 			};
 
 			_db.Users.Add(user);

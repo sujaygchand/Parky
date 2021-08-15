@@ -23,7 +23,7 @@ namespace ParkyAPI.Controllers
 
 		[AllowAnonymous]
 		[HttpPost("authenticate")]
-		public IActionResult Authenticate([FromBody] User model)
+		public IActionResult Authenticate([FromBody] AuthenticationModel model)
 		{
 			if (_userRepo == null)
 				return BadRequest(new { message = "UserRepository is null" });
@@ -38,7 +38,7 @@ namespace ParkyAPI.Controllers
 
 		[AllowAnonymous]
 		[HttpPost("register")]
-		public IActionResult Register([FromBody] User model)
+		public IActionResult Register([FromBody] AuthenticationModel model)
 		{
 			if (_userRepo == null)
 				return BadRequest(new { message = "UserRepository is null" });
