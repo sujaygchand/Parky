@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ParkyWeb.Models;
@@ -9,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ParkyWeb.Controllers
@@ -70,7 +73,15 @@ namespace ParkyWeb.Controllers
 			if (user?.Token == null)
 				return View();
 
+			var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+			identity.AddClaim(new Claim(ClaimTypes.Name, user.Username));
+			identity.AddClaim(new Claim(ClaimTypes.Role, user.Role));
+			var principal = new ClaimsPrincipal(identity);
+			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
 			HttpContext.Session.SetString("JWToken", user.Token);
+
+			TempData[StaticDetails.Alert] = string.Format("Welcome {0}!", user.Username);
 			return RedirectToAction(nameof(Index));
 		}
 
@@ -92,13 +103,22 @@ namespace ParkyWeb.Controllers
 			if (isUserFound == false)
 				return View();
 
+			TempData[StaticDetails.Alert] = "Registeration Successful";
 			return RedirectToAction(nameof(Login));
 		}
 
-		public IActionResult Logout()
+		public async Task<IActionResult> Logout()
 		{
+			await HttpContext.SignOutAsync();
 			HttpContext.Session.SetString("JWToken", "");
 			return RedirectToAction(nameof(Index));
+		}
+
+
+		[HttpGet]
+		public IActionResult AccessDenied()
+		{
+			return View();
 		}
 
 	}

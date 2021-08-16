@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParkyWeb.Models;
 using ParkyWeb.Repository.IRepository;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace ParkyWeb.Controllers
 {
+	[Authorize]
 	public class NationalParksController : Controller
 	{
 		public readonly INationalParkRepository _nationalParkRepository;
@@ -25,6 +27,7 @@ namespace ParkyWeb.Controllers
 			return View(new NationalPark() { });
 		}
 
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Upsert(int? id)
 		{
 			if (_nationalParkRepository == null)
@@ -46,6 +49,7 @@ namespace ParkyWeb.Controllers
 		}
 
 		[HttpPost, ValidateAntiForgeryToken]
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Upsert(NationalPark park)
 		{
 			if (_nationalParkRepository == null || park == null)
@@ -94,6 +98,7 @@ namespace ParkyWeb.Controllers
 		}
 
 		[HttpDelete]
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Delete(int id)
 		{
 			if (_nationalParkRepository == null)

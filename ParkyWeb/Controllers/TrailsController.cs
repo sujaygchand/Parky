@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ParkyWeb.Models;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace ParkyWeb.Controllers
 {
+	[Authorize]
 	public class TrailsController : Controller
 	{
 		public readonly INationalParkRepository _nationalParkRepo;
@@ -28,6 +30,7 @@ namespace ParkyWeb.Controllers
 			return View(new Trail() { });
 		}
 
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Upsert(int? id)
 		{
 			if (_nationalParkRepo == null || _trailRepo == null)
@@ -97,6 +100,7 @@ namespace ParkyWeb.Controllers
 		}
 
 		[HttpDelete]
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Delete(int id)
 		{
 			if (_trailRepo == null)

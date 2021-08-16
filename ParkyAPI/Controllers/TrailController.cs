@@ -79,6 +79,7 @@ namespace ParkyAPI.Controllers
 		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TrailDto))]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesDefaultResponseType]
+		[Authorize(Roles = "Admin")]
 		public IActionResult GetTrailsInNationalPark(int id)
 		{
 			var trails = _trailRepository?.GetTrailsInNationalPark(id);
@@ -102,6 +103,7 @@ namespace ParkyAPI.Controllers
 		[ProducesResponseType(StatusCodes.Status201Created)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		[Authorize(Roles = "Admin")]
 		public IActionResult CreateTrail([FromBody] TrailCreateDto trailDto)
 		{
 			if (trailDto == null || _trailRepository == null || _mapper == null)
@@ -128,6 +130,7 @@ namespace ParkyAPI.Controllers
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		[Authorize(Roles = "Admin")]
 		public IActionResult UpdateTrail(int id, [FromBody] TrailUpdateDto trailDto)
 		{
 			if (id != trailDto.Id)
@@ -155,6 +158,7 @@ namespace ParkyAPI.Controllers
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status409Conflict)]
 		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		[Authorize(Roles = "Admin")]
 		public IActionResult DeleteTrail(int id)
 		{
 			if (_trailRepository == null || _mapper == null)
