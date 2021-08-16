@@ -33,7 +33,7 @@ namespace ParkyWeb.Controllers
 			if (_nationalParkRepo == null || _trailRepo == null)
 				return NotFound();
 
-			IEnumerable<NationalPark> parkList = await _nationalParkRepo.GetAllAsync(StaticDetails.NationalParkAPIPath);
+			IEnumerable<NationalPark> parkList = await _nationalParkRepo.GetAllAsync(StaticDetails.NationalParkAPIPath, HttpContext.Session.GetString("JWToken"));
 
 			TrailsVM trailVM = new TrailsVM()
 			{
@@ -51,7 +51,7 @@ namespace ParkyWeb.Controllers
 				return View(trailVM);
 
 			// Update
-			trailVM.Trail = await _trailRepo.GetAsync(StaticDetails.TrailAPIPath, id.GetValueOrDefault());
+			trailVM.Trail = await _trailRepo.GetAsync(StaticDetails.TrailAPIPath, id.GetValueOrDefault(), HttpContext.Session.GetString("JWToken"));
 
 			if (trailVM.Trail == null)
 				return NotFound();
@@ -67,7 +67,7 @@ namespace ParkyWeb.Controllers
 
 			if (!ModelState.IsValid)
 			{
-				IEnumerable<NationalPark> parkList = await _nationalParkRepo.GetAllAsync(StaticDetails.NationalParkAPIPath);
+				IEnumerable<NationalPark> parkList = await _nationalParkRepo.GetAllAsync(StaticDetails.NationalParkAPIPath, HttpContext.Session.GetString("JWToken"));
 
 				TrailsVM objVM = new TrailsVM()
 				{
@@ -84,16 +84,16 @@ namespace ParkyWeb.Controllers
 			}
 
 			if (trailVM.Trail.Id == 0)
-				await _trailRepo.CreateAsync(StaticDetails.TrailAPIPath, trailVM.Trail);
+				await _trailRepo.CreateAsync(StaticDetails.TrailAPIPath, trailVM.Trail, HttpContext.Session.GetString("JWToken"));
 			else
-				await _trailRepo.UpdateAsync(StaticDetails.TrailAPIPath + trailVM.Trail.Id, trailVM.Trail);
+				await _trailRepo.UpdateAsync(StaticDetails.TrailAPIPath + trailVM.Trail.Id, trailVM.Trail, HttpContext.Session.GetString("JWToken"));
 
 			return RedirectToAction(nameof(Index));
 		}
 
 		public async Task<IActionResult> GetAllTrails()
 		{
-			return Json(new { data = await _trailRepo.GetAllAsync(StaticDetails.TrailAPIPath) });
+			return Json(new { data = await _trailRepo.GetAllAsync(StaticDetails.TrailAPIPath, HttpContext.Session.GetString("JWToken")) });
 		}
 
 		[HttpDelete]
@@ -102,7 +102,7 @@ namespace ParkyWeb.Controllers
 			if (_trailRepo == null)
 				return NotFound();
 
-			var status = await _trailRepo.DeleteAsync(StaticDetails.TrailAPIPath, id);
+			var status = await _trailRepo.DeleteAsync(StaticDetails.TrailAPIPath, id, HttpContext.Session.GetString("JWToken"));
 
 			return Json(new { success = status, message = (status ? "Delete Successful" : "Delete Not Successful") });
 		}

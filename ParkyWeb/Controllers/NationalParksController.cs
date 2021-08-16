@@ -37,7 +37,7 @@ namespace ParkyWeb.Controllers
 				return View(park);
 
 			// Update
-			park = await _nationalParkRepository.GetAsync(StaticDetails.NationalParkAPIPath, id.GetValueOrDefault());
+			park = await _nationalParkRepository.GetAsync(StaticDetails.NationalParkAPIPath, id.GetValueOrDefault(), HttpContext.Session.GetString("JWToken"));
 
 			if(park == null)
 				return NotFound();
@@ -72,7 +72,7 @@ namespace ParkyWeb.Controllers
 			}
 			else
 			{
-				var parkFromDb = await _nationalParkRepository.GetAsync(StaticDetails.NationalParkAPIPath, park.Id);
+				var parkFromDb = await _nationalParkRepository.GetAsync(StaticDetails.NationalParkAPIPath, park.Id, HttpContext.Session.GetString("JWToken"));
 				
 				if(parkFromDb != null)
 					park.Picture = parkFromDb.Picture;
@@ -81,16 +81,16 @@ namespace ParkyWeb.Controllers
 			bool isUpdating = park.Id != 0;
 
 			if(isUpdating)
-				await _nationalParkRepository.UpdateAsync(StaticDetails.NationalParkAPIPath + park.Id, park);
+				await _nationalParkRepository.UpdateAsync(StaticDetails.NationalParkAPIPath + park.Id, park, HttpContext.Session.GetString("JWToken"));
 			else
-				await _nationalParkRepository.CreateAsync(StaticDetails.NationalParkAPIPath, park);
+				await _nationalParkRepository.CreateAsync(StaticDetails.NationalParkAPIPath, park, HttpContext.Session.GetString("JWToken"));
 
 			return RedirectToAction(nameof(Index));
 		}
 
 		public async Task<IActionResult> GetAllNationalParks()
 		{
-			return Json(new { data = await _nationalParkRepository.GetAllAsync(StaticDetails.NationalParkAPIPath) });
+			return Json(new { data = await _nationalParkRepository.GetAllAsync(StaticDetails.NationalParkAPIPath, HttpContext.Session.GetString("JWToken")) });
 		}
 
 		[HttpDelete]
@@ -99,7 +99,7 @@ namespace ParkyWeb.Controllers
 			if (_nationalParkRepository == null)
 				return NotFound();
 
-			var status = await _nationalParkRepository.DeleteAsync(StaticDetails.NationalParkAPIPath, id);
+			var status = await _nationalParkRepository.DeleteAsync(StaticDetails.NationalParkAPIPath, id, HttpContext.Session.GetString("JWToken"));
 
 			return Json(new { success = status, message = (status ? "Delete Successful" : "Delete Not Successful") });
 		}
