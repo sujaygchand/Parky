@@ -65,8 +65,8 @@ namespace ParkyAPI
 			});
 
 			var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-			var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
-			options.IncludeXmlComments(cmlCommentsFullPath);
+			var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+			options.IncludeXmlComments(xmlCommentsFullPath);
 		}
 	}
 }
